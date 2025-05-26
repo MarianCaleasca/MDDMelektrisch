@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 
 const MONGO_URI = process.env.MONGO_URI;
 
+mongoose.connect(MONGO_URI)
+    .then(() => console.log("Connesso a MongoDB"))
+    .catch(err => console.error("Errore connessione MongoDB:", err));
 // JavaScript source code
 const express = require("express");
 const mongoose = require("mongoose");
@@ -16,7 +19,6 @@ app.use(express.json());
 app.use(cors());
 
 // 🔸 Connessione a MongoDB
-mongoose.connect(MONGO_URI);
 
 // 🔸 Schema del modello Utente
 const UserSchema = new mongoose.Schema({
