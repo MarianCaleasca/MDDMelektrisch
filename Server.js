@@ -1,5 +1,12 @@
-// JavaScript source code
-require("dotenv").config();
+﻿// JavaScript source code
+require('dotenv').config();
+const mongoose = require('mongoose');
+
+const MONGO_URI = process.env.MONGO_URI;
+
+mongoose.connect(MONGO_URI)
+    .then(() => console.log("Connesso a MongoDB"))
+    .catch(err => console.error("Errore connessione MongoDB:", err));
 // JavaScript source code
 const express = require("express");
 const mongoose = require("mongoose");
@@ -11,13 +18,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ?? Connessione a MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+// 🔸 Connessione a MongoDB
+mongoose.connect(MONGO_URI);
 
-// ?? Schema del modello Utente
+// 🔸 Schema del modello Utente
 const UserSchema = new mongoose.Schema({
     username: String,
     email: String,
@@ -26,12 +30,12 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-// ?? Registrazione
+// 🔹 Registrazione
 app.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
     const userExists = await User.findOne({ email });
 
-    if (userExists) return res.status(400).json({ message: "Email gi� registrata" });
+    if (userExists) return res.status(400).json({ message: "Email già registrata" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, email, password: hashedPassword });
@@ -39,7 +43,7 @@ app.post("/register", async (req, res) => {
     res.json({ message: "Registrazione completata!" });
 });
 
-// ?? Login
+// 🔹 Login
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -53,7 +57,7 @@ app.post("/login", async (req, res) => {
     res.json({ token });
 });
 
-// ?? Dashboard (Dati utente)
+// 🔹 Dashboard (Dati utente)
 app.get("/me", async (req, res) => {
     const auth = req.headers.authorization;
     if (!auth) return res.status(401).json({ message: "Token mancante" });
@@ -68,6 +72,7 @@ app.get("/me", async (req, res) => {
     }
 });
 
-// ?? Avvio del server
-app.listen(3000, () => console.log("? Server avviato su http://localhost:3000"));
+// 🔹 Avvio del server
+app.listen(3000, () => console.log("✅ Server avviato su http://mddmelektrisch.onrender.com"));
 app.use(express.static("Prova2"));
+

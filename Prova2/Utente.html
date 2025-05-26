@@ -111,7 +111,7 @@
             if (!token) window.location.href = "login.html";
 
             async function getUserData() {
-                const res = await fetch("http://localhost:3000/me", {
+                const res = await fetch("http://mddmelektrisch.onrender.com/me", {
                     headers: { "Authorization": "Bearer " + token }
                 });
 
