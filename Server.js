@@ -73,6 +73,12 @@ app.get("/me", async (req, res) => {
 });
 
 // 🔹 Avvio del server
-app.listen(3000, () => console.log("✅ Server avviato su http://mddmelektrisch.onrender.com"));
-app.use(express.static("Prova2"));
+const PORT = process.env.PORT || 3000;
+
+app.use(express.static("Prova2"));  // Serve file statici dalla cartella Prova2
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Server avviato su http://mddmelektrisch.onrender.com:${PORT}`);
+});
+
 
