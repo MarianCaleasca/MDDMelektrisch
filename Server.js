@@ -8,11 +8,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 
-app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+
 
 const MONGO_URI = process.env.MONGO_URI;
 
@@ -79,6 +75,12 @@ app.get("/me", async (req, res) => {
         res.status(401).json({ message: "Token non valido" });
     }
 });
+
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // 🔹 Avvio del server
 const PORT = process.env.PORT || 3000;
