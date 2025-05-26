@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+
+<html lang="it" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MDDM ELEKTRISCH</title>
+    <link rel="stylesheet" href="prova.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <h1 id="finale">
+        <div id="homes">
+            <button><img class="size" src="Home.png" />Home</button>
+            <button onclick="googleTranslateElementInit()">Language</button>
+            <button onclick="logout()">Logout</button>
+            <button class="pr" id="usernameDisplay">ok</button>
+        </div>
+        <div id="google_translate_element"></div>
+    </h1>
+
+
+    <div class="wrapper">
+        <div class="contenitore">
+            <div class="descrizione">
+                <p>Met ruim zes jaar ervaring in standaard (woning)installaties en tientallen tevreden klanten, kunt u nu de door u gewenste installaties direct online bestellen. In de industriële sector wordt samengewerkt met partners op het gebied van klimaattechnologieën. Wij hebben werkzaamheden uitgevoerd voor hcrt Regeltechniek & Klimaattechniek, Abs Klimaattechniek, Warmtebouw bv, ULC Regeltechniek & Klimaattechniek, Celcius bv.</p>
+            </div>
+            <div class="griglia-immagine">
+                <div class="quadrante" data-id="1">
+                    <h3> 1 Patch:<br />-Installatie van stopcontacten en kabels <br />-Uitbreiding zekeringpaneel <br />-Installatie van binnen- en buitenverlichting </h3>
+                </div>
+                <div class="quadrante" data-id="2">
+                    <h4>Conexiune Perilex<br />Renovare elecrica<br />Intrerupatoare si cablare<br />Probleme electrice</h4>
+                </div>
+                <div class="quadrante" data-id="3"><h5>Detecctare scurtcircuit<br />Instalare statie de icarcare</h5></div>
+                <div class="quadrante" data-id="4"><h5>Aplicare current electric</h5></div>
+                <div class="quadrante" data-id="5"><h5>Instalare tablou electric</h5></div>
+                <div class="quadrante" data-id="6"><h5>Proiectare instalatienelectrica</h5></div>
+                <div class="quadrante" data-id="7"><h5>Cablare si montare cabluri de date</h5></div>
+                <div class="quadrante" data-id="8"><h5>Electromotaj instalatii aerisire si incalzitoare</h5></div>
+                <div class="quadrante" data-id="9"></div>
+            </div>
+        </div>
+        <div class="contenitore">
+            <div class="descrizione">
+                <p>&lt;----- order your feature <br /> contact us att<br /> e-mail: mddmelektrisch@gmail.com <br />phone: 0634175308</p>
+            </div>
+        </div>
+
+        <script>
+            document.querySelectorAll(".quadrante").forEach(div => {
+                div.addEventListener("click", () => {
+                    const id = div.dataset.id;
+                    //alert("Hai cliccato sul quadrante " + id);
+                    // Puoi fare anche: window.location.href = `dettaglio.html?id=${id}`;
+                });
+            });
+        </script>
+
+
+        <script>
+            window.onload = async () => {
+                // 🌍 Imposta la lingua se già salvata
+                const savedLang = localStorage.getItem("selectedLanguage");
+                if (savedLang) {
+                    changeLanguage(savedLang);
+                }
+
+                // 🔐 Controlla il token
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    alert("Devi prima accedere!");
+                    window.location.href = "pagina.html";
+                    return;
+                }
+
+                // ✅ Prendi dati utente e mostra il nome
+                try {
+                    const res = await fetch("http://localhost:3000/me", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + token
+                        }
+                    });
+
+                    if (!res.ok) throw new Error("Token non valido o scaduto");
+
+                    const data = await res.json();
+                    document.getElementById("usernameDisplay").innerText = data.username;
+                } catch (err) {
+                    alert(err.message);
+                    localStorage.removeItem("token");
+                    window.location.href = "pagina.html";
+                }
+            };
+
+            // 🔁 Cambia lingua se selezionata
+            function changeLanguage(lang) {
+                const selectField = document.querySelector(".goog-te-combo");
+                if (selectField) {
+                    selectField.value = lang;
+                    selectField.dispatchEvent(new Event("change"));
+                    localStorage.setItem("selectedLanguage", lang);
+                }
+            }
+        </script>
+
+
+        <script>
+            const token = localStorage.getItem("token");
+            if (!token) window.location.href = "login.html";
+
+            async function getUserData() {
+                const res = await fetch("http://localhost:3000/me", {
+                    headers: { "Authorization": "Bearer " + token }
+                });
+
+                const data = await res.json();
+                if (data.username) {
+                    document.getElementById("userInfo").innerText = "Ciao, " + data.username;
+                } else {
+                    alert("Sessione non valida");
+                    window.location.href = "pagina.html";
+                }
+            }
+
+            getUserData();
+
+            function logout() {
+                localStorage.removeItem("token");
+                window.location.href = "pagina.html";
+            }
+        </script>
+        <script src="code.js"></script>
+
+        <script>
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'it',
+                    includedLanguages: 'en,es,fr,de',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                }, 'google_translate_element');
+            }
+
+            // Funzione per cambiare lingua
+            function changeLanguage(lang) {
+                const selectField = document.querySelector(".goog-te-combo");
+                if (selectField) {
+                    selectField.value = lang;
+                    selectField.dispatchEvent(new Event("change"));
+                    localStorage.setItem("selectedLanguage", lang);  // 🔥 Salva nel localStorage
+                }
+            }
+        </script>
+
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({ pageLanguage: 'it' }, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+        <!-- Questo codice JS è uguale, ma invia l’ordine via POST a PHP -->
+        <script>
+            document.querySelectorAll('.quadrante').forEach(function (quadrante) {
+                quadrante.addEventListener('click', function () {
+                    const id = this.getAttribute('data-id');
+                    Swal.fire({
+                        title: 'Ordina il prodotto ' + id,
+                        html: `
+                    <input type="text" id="nome" placeholder="Il tuo nome"><br><br>
+                    <input type="email" id="email" placeholder="La tua email"><br><br>
+                    <textarea id="quantita" placeholder="Description" rows="4"></textarea><br><br>
+                  `,
+                        showCancelButton: true,
+                        confirmButtonText: 'Invia ordine',
+                        preConfirm: () => {
+                            const nome = document.getElementById('nome').value;
+                            const email = document.getElementById('email').value;
+                            const quantita = document.getElementById('quantita').value;
+                            if (!nome || !email || !quantita) {
+                                Swal.showValidationMessage('Tutti i campi sono obbligatori');
+                                return false;
+                            }
+                            return { nome, email, quantita, prodotto: id };
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Invia al server PHP
+                            fetch('invia-ordine.php', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(result.value)
+                            })
+                                .then(response => response.text())
+                                .then(data => {
+                                    Swal.fire('Ordine inviato!', data, 'success');
+                                })
+                                .catch(err => {
+                                    Swal.fire('Errore', 'Impossibile inviare l\'ordine.', 'error');
+                                });
+                        }
+                    });
+                });
+            });
+        </script>
+
+
+
+</body>
+</html>

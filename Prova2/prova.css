@@ -1,0 +1,171 @@
+﻿p {
+    font-size: 30px;
+    display: block;
+}
+
+.gri {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+body {
+    margin: 0 0 0 0;
+    background-color: darkgray;
+}
+
+.border {
+    border: solid black;
+}
+
+.curve {
+    border-radius: 15px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    margin: 0 15px 0 0;
+    background-color: dimgray;
+    font-size: 30px;
+    height: 40px;
+    border-color: dimgray;
+    color: antiquewhite;
+}
+
+.general {
+    background-color: azure;
+    width: 160px;
+}
+
+.size {
+    width: 30px;
+    height: 25px;
+}
+
+.pic {
+    width: 600px;
+    height: 500px;
+}
+
+.imgsize {
+    margin: 40px 15px 40px 15px;
+    width: 175px;
+    height: 240px;
+    border-radius: 35px;
+}
+
+h1,h2{
+    background-color: dimgray;
+    color: antiquewhite;
+    height: 50px;
+    width: 1490px;
+    font-size: 33px;
+    padding: 15px 15px 15px 20px;
+    margin: 0 0 0 0;
+}
+ .pr{
+     margin-left: auto;
+     border-radius: 30px 30px 30px 30px;
+ }
+
+#homes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* o flex-end / flex-start */
+}
+
+    .quadrante:hover {
+        filter: brightness(85%);
+    }
+
+    .quadrante:hover {
+        filter: brightness(85%);
+    }
+
+    /* Posizionamento dei 9 pezzi */
+    .quadrante:nth-child(1) {
+        background-position: 0% 0%;
+    }
+
+    .quadrante:nth-child(2) {
+        background-position: 50% 0%;
+    }
+
+    .quadrante:nth-child(3) {
+        background-position: 100% 0%;
+    }
+
+    .quadrante:nth-child(4) {
+        background-position: 0% 50%;
+    }
+
+    .quadrante:nth-child(5) {
+        background-position: 50% 50%;
+    }
+
+    .quadrante:nth-child(6) {
+        background-position: 100% 50%;
+    }
+
+    .quadrante:nth-child(7) {
+        background-position: 0% 100%;
+    }
+
+    .quadrante:nth-child(8) {
+        background-position: 50% 100%;
+    }
+
+    .quadrante:nth-child(9) {
+        background-position: 100% 100%;
+    }
+
+.wrapper {
+    display: flex;
+    justify-content: center; /* centra tutto il blocco */
+    padding: 2rem;
+}
+
+.contenitore {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.griglia-immagine {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 600px;
+    height: 600px;
+    border: 2px solid #000;
+    flex-shrink: 0;
+
+}
+    
+.quadrante::before{
+    border: 1px solid #000;
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("Logo.jpg");
+    background-size: 300% 300%;
+    background-position: inherit;
+    opacity: 0.4; /* Solo lo sfondo è trasparente */
+    z-index: -1;
+}
+
+.quadrante {
+    position: relative;
+}
+
+
+.descrizione {
+    width: 400px;
+    flex-shrink: 0;
+}
