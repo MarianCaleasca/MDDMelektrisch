@@ -18,7 +18,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 🔸 Connessione a MongoDB
+const path = require('path');
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Prova2', 'pagina.html'));
+});
 
 // 🔸 Schema del modello Utente
 const UserSchema = new mongoose.Schema({
