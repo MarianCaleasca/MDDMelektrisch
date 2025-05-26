@@ -46,7 +46,7 @@
             const email = document.getElementById("mailfai").value;
             const password = document.getElementById("passfai").value;
 
-            const res = await fetch("http://mddmelektrisch.onrender.com/register", {
+            const res = await fetch("register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, email, password })
@@ -66,7 +66,7 @@
             const email = document.getElementById("maillog").value;
             const password = document.getElementById("passlog").value;
 
-            const res = await fetch("http://mddmelektrisch.onrender.com/login", {
+            const res = await fetch("login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
