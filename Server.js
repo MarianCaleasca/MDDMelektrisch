@@ -21,7 +21,7 @@ app.use(cors());
 const path = require('path');
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Prova2', 'pagina.html'));
+    res.sendFile(path.join(__dirname, 'publica', 'pagina.html'));
 });
 
 // 🔸 Schema del modello Utente
