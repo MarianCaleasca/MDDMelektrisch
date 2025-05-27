@@ -76,7 +76,7 @@
 
                 // ✅ Prendi dati utente e mostra il nome
                 try {
-                    const res = await fetch("http://mddmelektrisch.onrender.com/me", {
+                    const res = await fetch("https://mddmelektrisch.onrender.com/me", {
                         method: "GET",
                         headers: {
                             "Authorization": "Bearer " + token
@@ -111,7 +111,7 @@
             if (!token) window.location.href = "login.html";
 
             async function getUserData() {
-                const res = await fetch("http://mddmelektrisch.onrender.com/me", {
+                const res = await fetch("https://mddmelektrisch.onrender.com/me", {
                     headers: { "Authorization": "Bearer " + token }
                 });
 

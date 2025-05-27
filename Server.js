@@ -88,7 +88,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static("publica"));  // Serve file statici dalla cartella Prova2
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`✅ Server avviato su http://mddmelektrisch.onrender.com:${PORT}`);
+    console.log(`✅ Server avviato su https://mddmelektrisch.onrender.com:${PORT}`);
 });
 
 
