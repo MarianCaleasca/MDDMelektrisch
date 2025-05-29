@@ -91,7 +91,7 @@ app.get("/me", async (req, res) => {
             user: process.env.EMAIL_USER, // metti la tua email nei .env
             pass: process.env.EMAIL_PASS  // e la tua password/app password
         }
-    });*/
+    });
 
     const mailOptions = {
         from: email,
@@ -106,7 +106,7 @@ app.get("/me", async (req, res) => {
     } catch (err) {
         console.error("Errore invio email:", err);
         res.status(500).send("Errore invio email");
-    }
+    }*/
 
 
 
