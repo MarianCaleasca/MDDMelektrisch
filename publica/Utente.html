@@ -174,8 +174,10 @@
         document.querySelectorAll('.quadrante').forEach(function (quadrante) {
             quadrante.addEventListener('click', function () {
                 const id = this.getAttribute('data-id');
+                const descrizione = this.innerText.trim();
+
                 Swal.fire({
-                    title: 'Order ' + id,
+                    title: 'Order ${descrizione}',
                     html: `
                             <input type="text" id="nome" placeholder="Il tuo nome"><br><br>
                             <input type="email" id="email" placeholder="La tua email"><br><br>
@@ -191,14 +193,14 @@
                             Swal.showValidationMessage('Tutti i campi sono obbligatori');
                             return false;
                         }
-                        return { nome, email, quantita, prodotto: id };
+                        return { nome, email, quantita, prodotto: descrizione, id };
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         const params = {
                             name: result.value.nome,
                             email: result.value.email,
-                            message: `Ordine per: ${result.value.quantita}`
+                            message: `Order n° ${result.value.id} - ${result.value.prodotto}\n\nDettagli: ${result.value.quantita}`
                         };
 
                         emailjs.send("service_kd2k8sm", "template_egpm2rn", params)
