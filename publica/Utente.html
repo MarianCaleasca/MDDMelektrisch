@@ -121,12 +121,11 @@
             });
 
             const data = await res.json();
-            if (data.username) {
-                document.getElementById("userInfo").innerText = "Ciao, " + data.username;
-            } else {
+            if (!data.username) {
                 alert("Sessione non valida");
                 window.location.href = "pagina.html";
             }
+
         }
 
         getUserData();
