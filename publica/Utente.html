@@ -30,14 +30,18 @@
                     <h3> 1 Patch:<br />-Installatie van stopcontacten en kabels <br />-Uitbreiding zekeringpaneel <br />-Installatie van binnen- en buitenverlichting </h3>
                 </div>
                 <div class="quadrante" data-id="2">
-                    <h4>Conexiune Perilex<br />Renovare elecrica<br />Intrerupatoare si cablare<br />Probleme electrice</h4>
+                    <h4> 2 Patch <br />Perilex Connection<br />Elektrische renovatie<br />Schakelaars en bedrading<br />Elektrische problemen</h4>
                 </div>
-                <div class="quadrante" data-id="3"><h5>Detecctare scurtcircuit<br />Instalare statie de icarcare</h5></div>
-                <div class="quadrante" data-id="4"><h5>Aplicare current electric</h5></div>
-                <div class="quadrante" data-id="5"><h5>Instalare tablou electric</h5></div>
-                <div class="quadrante" data-id="6"><h5>Proiectare instalatienelectrica</h5></div>
-                <div class="quadrante" data-id="7"><h5>Cablare si montare cabluri de date</h5></div>
-                <div class="quadrante" data-id="8"><h5>Electromotaj instalatii aerisire si incalzitoare</h5></div>
+                <div class="quadrante" data-id="3">
+                    <h5>Kortsluitdetectie<br />Installatie van laadstations</h5>
+                </div>
+                <div class="quadrante" data-id="4">
+                    <h5>Elektrische stroom toepassen</h5>
+                </div>
+                <div class="quadrante" data-id="5"><h5>Installatie van het elektrische paneel</h5></div>
+                <div class="quadrante" data-id="6"><h5>Ontwerp van elektrische installaties</h5></div>
+                <div class="quadrante" data-id="7"><h5>Bekabeling en installatie van datakabels</h5></div>
+                <div class="quadrante" data-id="8"><h5>Elektrische installatie van ventilatie- en verwarmingssystemen</h5></div>
                 <div class="quadrante" data-id="9"></div>
             </div>
         </div>
@@ -45,6 +49,7 @@
             <div class="descrizione">
                 <p>&lt;----- order your feature <br /> contact us att<br /> e-mail: mddmelektrisch@gmail.com <br />phone: 0634175308</p>
             </div>
+        </div>
         </div>
 
         <script>
@@ -160,18 +165,22 @@
         </script>
         <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-        <!-- Questo codice JS è uguale, ma invia l’ordine via POST a PHP -->
+        <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+        <script>
+            emailjs.init("MarianCaleasca"); // ✅ Sostituisci con il tuo vero USER ID
+        </script>
+
         <script>
             document.querySelectorAll('.quadrante').forEach(function (quadrante) {
                 quadrante.addEventListener('click', function () {
                     const id = this.getAttribute('data-id');
                     Swal.fire({
-                        title: 'Ordina il prodotto ' + id,
+                        title: 'Order ' + id,
                         html: `
-                    <input type="text" id="nome" placeholder="Il tuo nome"><br><br>
-                    <input type="email" id="email" placeholder="La tua email"><br><br>
-                    <textarea id="quantita" placeholder="Description" rows="4"></textarea><br><br>
-                  `,
+                                    <input type="text" id="nome" placeholder="Il tuo nome"><br><br>
+                                    <input type="email" id="email" placeholder="La tua email"><br><br>
+                                    <textarea id="quantita" placeholder="Description" rows="4"></textarea><br><br>
+                                  `,
                         showCancelButton: true,
                         confirmButtonText: 'Invia ordine',
                         preConfirm: () => {
@@ -186,28 +195,21 @@
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // Invia al server PHP
-                            fetch('invia-ordine.php', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(result.value)
-                            })
-                                .then(response => response.text())
-                                .then(data => {
-                                    Swal.fire('Ordine inviato!', data, 'success');
-                                })
-                                .catch(err => {
-                                    Swal.fire('Errore', 'Impossibile inviare l\'ordine.', 'error');
+                            const params = {
+                                nome: document.getElementById("nome").value,
+                                email: document.getElementById("email").value,
+                                quantita: document.getElementById("quantita").value,
+                            };
+
+                            emailjs.send("service_kd2k8sm", "template_egpm2rn", params)
+                                .then(() => {
+                                    alert("Ordered");
+                                }, (err) => {
+                                    alert("Error");
+                                    console.error(err);
                                 });
-                        }
-                    });
-                });
-            });
+                }   
         </script>
-
-
 
 </body>
 </html>

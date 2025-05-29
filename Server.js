@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const nodemailer = require("nodemailer");
 
 
 
@@ -75,6 +76,39 @@ app.get("/me", async (req, res) => {
         res.status(401).json({ message: "Token non valido" });
     }
 });
+
+/*app.post("/invia-ordine", async (req, res) => {
+    const { nome, email, quantita, prodotto } = req.body;
+
+    if (!nome || !email || !quantita || !prodotto) {
+        return res.status(400).json({ message: "Campi mancanti" });
+    }
+
+    // Configura il transporter
+    const transporter = nodemailer.createTransport({
+        service: "gmail", // o 'outlook', 'yahoo', ecc.
+        auth: {
+            user: process.env.EMAIL_USER, // metti la tua email nei .env
+            pass: process.env.EMAIL_PASS  // e la tua password/app password
+        }
+    });*/
+
+    const mailOptions = {
+        from: email,
+        to: process.env.EMAIL_USER, // a chi invii l’ordine
+        subject: "Nuovo Ordine Ricevuto",
+        text: `Hai ricevuto un ordine da ${nome} (${email}):\n\nProdotto: ${prodotto}\nQuantità: ${quantita}`
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        res.send("Ordine inviato con successo via email!");
+    } catch (err) {
+        console.error("Errore invio email:", err);
+        res.status(500).send("Errore invio email");
+    }
+
+
 
 app.use(cors({
     origin: '*',
