@@ -165,22 +165,22 @@
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script>
-        emailjs.init("A8DlaPczgL56ps21a"); // ✅ Sostituisci con il tuo vero USER ID
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
+    <script type="module">
+        import emailjs from 'https://cdn.emailjs.com/dist/email.min.mjs';
+        emailjs.init('A8DlaPczgL56ps21a'); // sostituisci con il tuo Public Key
+
         document.querySelectorAll('.quadrante').forEach(function (quadrante) {
             quadrante.addEventListener('click', function () {
                 const id = this.getAttribute('data-id');
                 Swal.fire({
                     title: 'Order ' + id,
                     html: `
-                <input type="text" id="nome" placeholder="Il tuo nome"><br><br>
-                <input type="email" id="email" placeholder="La tua email"><br><br>
-                <textarea id="quantita" placeholder="Description" rows="4"></textarea><br><br>
-            `,
+                    <input type="text" id="nome" placeholder="Il tuo nome"><br><br>
+                    <input type="email" id="email" placeholder="La tua email"><br><br>
+                    <textarea id="quantita" placeholder="Description" rows="4"></textarea><br><br>
+                `,
                     showCancelButton: true,
                     confirmButtonText: 'Invia ordine',
                     preConfirm: () => {
@@ -196,9 +196,9 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         const params = {
-                            name: document.getElementById("nome").value,
-                            email: document.getElementById("email").value,
-                            message: document.getElementById("quantita").value
+                            name: result.value.nome,
+                            email: result.value.email,
+                            message: `Ordine per: ${result.value.quantita}`
                         };
 
                         emailjs.send("service_kd2k8sm", "template_egpm2rn", params)
@@ -213,8 +213,5 @@
             });
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 </html>
