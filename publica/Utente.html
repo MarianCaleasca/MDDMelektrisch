@@ -50,166 +50,168 @@
                 <p>&lt;----- order your feature <br /> contact us att<br /> e-mail: mddmelektrisch@gmail.com <br />phone: 0634175308</p>
             </div>
         </div>
-        </div>
+    </div>
 
-        <script>
-            document.querySelectorAll(".quadrante").forEach(div => {
-                div.addEventListener("click", () => {
-                    const id = div.dataset.id;
-                    //alert("Hai cliccato sul quadrante " + id);
-                    // Puoi fare anche: window.location.href = `dettaglio.html?id=${id}`;
-                });
+    <script>
+        document.querySelectorAll(".quadrante").forEach(div => {
+            div.addEventListener("click", () => {
+                const id = div.dataset.id;
+                //alert("Hai cliccato sul quadrante " + id);
+                // Puoi fare anche: window.location.href = `dettaglio.html?id=${id}`;
             });
-        </script>
+        });
+    </script>
 
 
-        <script>
-            window.onload = async () => {
-                // 🌍 Imposta la lingua se già salvata
-                const savedLang = localStorage.getItem("selectedLanguage");
-                if (savedLang) {
-                    changeLanguage(savedLang);
-                }
-
-                // 🔐 Controlla il token
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    alert("Devi prima accedere!");
-                    window.location.href = "pagina.html";
-                    return;
-                }
-
-                // ✅ Prendi dati utente e mostra il nome
-                try {
-                    const res = await fetch("https://mddmelektrisch.onrender.com/me", {
-                        method: "GET",
-                        headers: {
-                            "Authorization": "Bearer " + token
-                        }
-                    });
-
-                    if (!res.ok) throw new Error("Token non valido o scaduto");
-
-                    const data = await res.json();
-                    document.getElementById("usernameDisplay").innerText = data.username;
-                } catch (err) {
-                    alert(err.message);
-                    localStorage.removeItem("token");
-                    window.location.href = "pagina.html";
-                }
-            };
-
-            // 🔁 Cambia lingua se selezionata
-            function changeLanguage(lang) {
-                const selectField = document.querySelector(".goog-te-combo");
-                if (selectField) {
-                    selectField.value = lang;
-                    selectField.dispatchEvent(new Event("change"));
-                    localStorage.setItem("selectedLanguage", lang);
-                }
+    <script>
+        window.onload = async () => {
+            // 🌍 Imposta la lingua se già salvata
+            const savedLang = localStorage.getItem("selectedLanguage");
+            if (savedLang) {
+                changeLanguage(savedLang);
             }
-        </script>
 
-
-        <script>
+            // 🔐 Controlla il token
             const token = localStorage.getItem("token");
-            if (!token) window.location.href = "login.html";
+            if (!token) {
+                alert("Devi prima accedere!");
+                window.location.href = "pagina.html";
+                return;
+            }
 
-            async function getUserData() {
+            // ✅ Prendi dati utente e mostra il nome
+            try {
                 const res = await fetch("https://mddmelektrisch.onrender.com/me", {
-                    headers: { "Authorization": "Bearer " + token }
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
                 });
+
+                if (!res.ok) throw new Error("Token non valido o scaduto");
 
                 const data = await res.json();
-                if (data.username) {
-                    document.getElementById("userInfo").innerText = "Ciao, " + data.username;
-                } else {
-                    alert("Sessione non valida");
-                    window.location.href = "pagina.html";
-                }
-            }
-
-            getUserData();
-
-            function logout() {
+                document.getElementById("usernameDisplay").innerText = data.username;
+            } catch (err) {
+                alert(err.message);
                 localStorage.removeItem("token");
                 window.location.href = "pagina.html";
             }
-        </script>
-        <script src="code.js"></script>
+        };
 
-        <script>
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({
-                    pageLanguage: 'it',
-                    includedLanguages: 'en,es,fr,de',
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                }, 'google_translate_element');
+        // 🔁 Cambia lingua se selezionata
+        function changeLanguage(lang) {
+            const selectField = document.querySelector(".goog-te-combo");
+            if (selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event("change"));
+                localStorage.setItem("selectedLanguage", lang);
             }
+        }
+    </script>
 
-            // Funzione per cambiare lingua
-            function changeLanguage(lang) {
-                const selectField = document.querySelector(".goog-te-combo");
-                if (selectField) {
-                    selectField.value = lang;
-                    selectField.dispatchEvent(new Event("change"));
-                    localStorage.setItem("selectedLanguage", lang);  // 🔥 Salva nel localStorage
-                }
+
+    <script>
+        const token = localStorage.getItem("token");
+        if (!token) window.location.href = "login.html";
+
+        async function getUserData() {
+            const res = await fetch("https://mddmelektrisch.onrender.com/me", {
+                headers: { "Authorization": "Bearer " + token }
+            });
+
+            const data = await res.json();
+            if (data.username) {
+                document.getElementById("userInfo").innerText = "Ciao, " + data.username;
+            } else {
+                alert("Sessione non valida");
+                window.location.href = "pagina.html";
             }
-        </script>
+        }
 
-        <script type="text/javascript">
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({ pageLanguage: 'it' }, 'google_translate_element');
+        getUserData();
+
+        function logout() {
+            localStorage.removeItem("token");
+            window.location.href = "pagina.html";
+        }
+    </script>
+    <script src="code.js"></script>
+
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'it',
+                includedLanguages: 'en,es,fr,de',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        // Funzione per cambiare lingua
+        function changeLanguage(lang) {
+            const selectField = document.querySelector(".goog-te-combo");
+            if (selectField) {
+                selectField.value = lang;
+                selectField.dispatchEvent(new Event("change"));
+                localStorage.setItem("selectedLanguage", lang);  // 🔥 Salva nel localStorage
             }
-        </script>
-        <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        }
+    </script>
 
-        <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-        <script>
-            emailjs.init("MarianCaleasca"); // ✅ Sostituisci con il tuo vero USER ID
-        </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'it' }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-        <script>
-            document.querySelectorAll('.quadrante').forEach(function (quadrante) {
-                quadrante.addEventListener('click', function () {
-                    const id = this.getAttribute('data-id');
-                    Swal.fire({
-                        title: 'Order ' + id,
-                        html: `
-                                    <input type="text" id="nome" placeholder="Il tuo nome"><br><br>
-                                    <input type="email" id="email" placeholder="La tua email"><br><br>
-                                    <textarea id="quantita" placeholder="Description" rows="4"></textarea><br><br>
-                                  `,
-                        showCancelButton: true,
-                        confirmButtonText: 'Invia ordine',
-                        preConfirm: () => {
-                            const nome = document.getElementById('nome').value;
-                            const email = document.getElementById('email').value;
-                            const quantita = document.getElementById('quantita').value;
-                            if (!nome || !email || !quantita) {
-                                Swal.showValidationMessage('Tutti i campi sono obbligatori');
-                                return false;
-                            }
-                            return { nome, email, quantita, prodotto: id };
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        emailjs.init("MarianCaleasca"); // ✅ Sostituisci con il tuo vero USER ID
+    </script>
+
+    <script>
+        document.querySelectorAll('.quadrante').forEach(function (quadrante) {
+            quadrante.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                Swal.fire({
+                    title: 'Order ' + id,
+                    html: `
+                                        <input type="text" id="nome" placeholder="Il tuo nome"><br><br>
+                                        <input type="email" id="email" placeholder="La tua email"><br><br>
+                                        <textarea id="quantita" placeholder="Description" rows="4"></textarea><br><br>
+                                      `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Invia ordine',
+                    preConfirm: () => {
+                        const nome = document.getElementById('nome').value;
+                        const email = document.getElementById('email').value;
+                        const quantita = document.getElementById('quantita').value;
+                        if (!nome || !email || !quantita) {
+                            Swal.showValidationMessage('Tutti i campi sono obbligatori');
+                            return false;
                         }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            const params = {
-                                nome: document.getElementById("nome").value,
-                                email: document.getElementById("email").value,
-                                quantita: document.getElementById("quantita").value,
-                            };
+                        return { nome, email, quantita, prodotto: id };
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const params = {
+                            nome: document.getElementById("nome").value,
+                            email: document.getElementById("email").value,
+                            quantita: document.getElementById("quantita").value,
+                        };
 
-                            emailjs.send("service_kd2k8sm", "template_egpm2rn", params)
-                                .then(() => {
-                                    alert("Ordered");
-                                }, (err) => {
-                                    alert("Error");
-                                    console.error(err);
-                                });
-                }   
-        </script>
+                        emailjs.send("service_kd2k8sm", "template_egpm2rn", params)
+                            .then(() => {
+                                alert("Ordered");
+                            }, (err) => {
+                                alert("Error");
+                                console.error(err);
+                            });
+                    }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>
