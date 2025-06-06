@@ -40,12 +40,12 @@ app.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
     const userExists = await User.findOne({ email });
 
-    if (userExists) return res.status(400).json({ message: "Email già registrata" });
+    if (userExists) return res.status(400).json({ message: "Email used" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, email, password: hashedPassword });
     await user.save();
-    res.json({ message: "Registrazione completata!" });
+    res.json({ message: "Registration complete!" });
 });
 
 // 🔹 Login
@@ -53,10 +53,10 @@ app.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
-    if (!user) return res.status(400).json({ message: "Utente non trovato" });
+    if (!user) return res.status(400).json({ message: "User not found" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: "Password errata" });
+    if (!isMatch) return res.status(400).json({ message: "Password error" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     res.json({ token });
